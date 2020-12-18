@@ -5,6 +5,7 @@ export AKS_NAME=contoso-video
 export ACR_NAME=ContosoContainerRegistry$RANDOM
 declare DNS_GROUP_NAME=$RESOURCE_GROUP_NAME
 
+
 az group create -n $RESOURCE_GROUP_NAME -l eastus
 
 az aks create \
