@@ -24,8 +24,8 @@ jobs:
           username: ${{ secrets.ACR_LOGIN }}
           password: ${{ secrets.ACR_PASSWORD }}
           registry: ${{ secrets.ACR_NAME }}
-          repository: contoso-website
       - name: Build and push production image
         uses: docker/build-push-action@v2.2.1
         with:
+          push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
