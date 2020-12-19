@@ -32,13 +32,15 @@ jobs:
         with:
           version: v3.3.1
 
-      - name: Get AKS Credentials
-        uses: azure/k8s-set-context@v1
+      - name: Azure Kubernetes set context
+        uses: Azure/aks-set-context@v1
         with:
-          method: service-account
-          k8s-url: ${{ secrets.K8S_URL}}
-          k8s-secret: ${{ secrets.AZURE_CREDENTIALS}}
-        id: setcontext
+          # Azure credentials i.e. output of `az ad sp create-for-rbac --sdk-auth`
+          creds: ${{ secrets.AZURE_CREDENTIALS }} 
+          # Resource Group Name
+          resource-group: ${{ secrets.RESOURCE_GROUP}}
+          # AKS Cluster Name
+          cluster-name: ${{ secrets.CLUSTER_NAME}}# optional, default is 
 
       # ... File omitted
       - name: Run Helm Deploy
