@@ -16,8 +16,7 @@ jobs:
         with:
           images: ${{ secrets.ACR_NAME }}/contoso-website
           tag-semver: |
-            {{version}}
-            {{major}}.{{minor}}
+            {{raw}}
       - name: Docker Login
         # You may pin to the exact commit or the version.
         # uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a
@@ -30,5 +29,5 @@ jobs:
         uses: docker/build-push-action@v2.2.1
         with:
           context: .
-          tags: ${{ steps.docker_meta.outputs.version }}
+          tags: ${{ version }}
           push: true
