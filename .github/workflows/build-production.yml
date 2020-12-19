@@ -4,15 +4,14 @@ on:
   push:
     tags:
       - 'v*'
-
 jobs:
   build_push_image:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       - name: Docker meta
-        id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: contoso-website
@@ -29,3 +28,4 @@ jobs:
         with:
           context: .
           tags: ${{ steps.docker_meta.outputs.tags }}
+          push: true
