@@ -56,7 +56,22 @@ jobs:
           # Kubernetes Config
           kubeconfig: ${{ secrets.AZURE_CREDENTIALS}}
         id: setcontext
-
+        
+      - name: Create secret in K8S cluster in production namespace
+        uses: Azure/k8s-create-secret@v1.1
+        with:
+          # Choose the target Kubernetes namespace. If the namespace is not provided, the commands will run in the default namespace.
+          namespace: production
+          # Container registry url
+          container-registry-url: ${{ secrets.ACR_NAME }}
+          # Container registry username
+          container-registry-username: ${{ secrets.ACR_LOGIN }}
+          # Container registry password
+          container-registry-password: ${{ secrets.ACR_PASSWORD }}
+          # Name of the secret. You can use this secret name in the Kubernetes YAML configuration file.
+          secret-name: acr-secret
+        id: create-secret 
+          
       # ... File omitted
       - name: Run Helm Deploy
         run: |
