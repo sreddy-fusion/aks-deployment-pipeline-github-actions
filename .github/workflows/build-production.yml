@@ -14,9 +14,10 @@ jobs:
       - name: Docker meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: contoso-website
+          images: ${{ secrets.ACR_NAME }}/contoso-website
           tag-semver: |
             {{version}}
+            {{major}}.{{minor}}
       - name: Docker Login
         # You may pin to the exact commit or the version.
         # uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a
@@ -29,5 +30,5 @@ jobs:
         uses: docker/build-push-action@v2.2.1
         with:
           context: .
-          tags: ${{ secrets.ACR_NAME }}/contoso-website:${{ steps.docker_meta.outputs.version }}
+          tags: ${{ steps.docker_meta.outputs.version }}
           push: true
