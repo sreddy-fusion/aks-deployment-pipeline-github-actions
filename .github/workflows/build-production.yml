@@ -14,7 +14,7 @@ jobs:
       - name: Docker meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: ${{ secrets.ACR_NAME }}/contoso-website
+          images: contoso-website
           tag-semver: |
             {{raw}}
           tag-match: 
@@ -31,5 +31,5 @@ jobs:
         uses: docker/build-push-action@v2.2.1
         with:
           context: .
-          tags: ${{ secrets.ACR_NAME }}/contoso-website:${{ steps.docker_meta.outputs.version }}
+          tags: ${{ secrets.ACR_NAME }}/contoso-website:v1.2.1
           push: true
