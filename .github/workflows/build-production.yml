@@ -29,5 +29,5 @@ jobs:
         uses: docker/build-push-action@v2.2.1
         with:
           context: .
-          tags: ${{ output.version }}
+          tags: ${{ steps.docker_meta.output.version }}
           push: true
